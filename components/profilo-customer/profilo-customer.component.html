@@ -1,0 +1,11 @@
+
+<router-outlet></router-outlet>
+<br><br>
+<h2>Bentornato {{customer.nome}} {{customer.cognome}}</h2>
+<app-my-table
+  [tableConfig]="headersTable"
+  [data]="prenotazioniUtente"
+  (emitter)="getAction($event.action, $event.object)"
+>
+
+</app-my-table>

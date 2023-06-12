@@ -1,0 +1,128 @@
+<!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">-->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<div class="container">
+  <!--Filtro-->
+
+  <div class="form-inline">
+    <mat-form-field appearance="fill">
+      <mat-label>Filtra per:</mat-label>
+      <mat-select [(ngModel)]="filterKey" name="filter">
+        <mat-option *ngFor="let column of tableConfig.search.columns" [value]="column">
+          {{column}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="example-form-field">
+      <mat-label>Cerca</mat-label>
+      <input matInput type="search" [(ngModel)]="filter">
+      <button *ngIf="filter" matSuffix mat-icon-button aria-label="Clear" (click)="filter=''">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+  </div>
+
+  <!--Bottone Aggiungi-->
+  <div >
+    <ng-container *ngFor="let action of tableConfig.actions">
+      <app-my-button *ngIf="action.newRowButton===true" (click)="actionEmitter(action,null)"
+                     [buttonConfig]="action.buttonConfig"></app-my-button> &nbsp;&nbsp;
+
+    </ng-container>
+    <br>
+  </div>
+
+  <!--Tabella-->
+  <table class="table table-bordered">
+    <thead>
+
+    <tr class="table-active">
+      <ng-container *ngFor="let header of tableConfig.headers">
+        <th scope="col" (click)="sort(header.key)">{{header.label}}&nbsp;
+
+          <i *ngIf="!enable" class="fa fa-sort"></i>
+          <i *ngIf="orderType==='desc' && enable" class="fa fa-sort-up"></i>
+          <i *ngIf="orderType==='asc' && enable" class="fa fa-sort-down"></i>
+        </th>
+      </ng-container>
+    </tr>
+
+    </thead>
+    <tbody>
+    <ng-container
+      *ngFor="let object of data  | sortPipe : key:  orderType | filterPipe: filter :filterKey | pagination :currentPage:itemPerPage">
+      <tr>
+
+        <td *ngFor="let header of tableConfig.headers">{{object[header.key]}}</td>
+
+        <!--Bottoni-->
+        <td style="width: 300px">
+          <ng-container *ngFor="let action of tableConfig.actions">
+            <app-my-button *ngIf="action.newRowButton===false" (click)="actionEmitter(action, object)"
+                           [buttonConfig]="action.buttonConfig"></app-my-button> &nbsp;&nbsp;
+
+          </ng-container>
+        </td>
+
+      </tr>
+
+    </ng-container>
+    </tbody>
+  </table>
+
+
+  <!--Paginazione-->
+  <nav class="pages">
+    <ul class="pagination d-inline-flex pagination-responsive">
+
+      <!-- first button -->
+      <li [class]="currentPage === 1 ? 'page-item disabled' : 'page-item'">
+        <a class="page-link" (click)="changePage(1)"> << Fist Page</a>
+      </li>
+
+      <!-- previous button -->
+      <li [ngClass]="{ disabled: currentPage === 1 }" class="page-item">
+        <a class="page-link" (click)="previous()">< Previous</a>
+      </li>
+
+      <!-- range of pages list -->
+      <li class="page-item"
+          *ngFor="let page of pages"
+          [ngClass]="{ 'page-item': true, active: currentPage === page }"
+          (click)="changePage(page)">
+        <span class="page-link">{{ page }}</span>
+      </li>
+
+      <!-- next button -->
+      <li
+        [ngClass]="{ disabled: currentPage + 1 > totalPages.length }"
+        class="page-item"
+      >
+        <a class="page-link" (click)="next()">Next ></a>
+      </li>
+
+      <!-- last button -->
+      <li [class]="currentPage === totalPages.length ? 'page-item disabled' : 'page-item'">
+        <a class="page-link" (click)="changePage(totalPages.length)">Last Page >></a>
+      </li>
+
+      <!--Select number of items-->&nbsp;&nbsp;&nbsp;
+      <p>Item for page:</p>&nbsp;
+      <li class="page-item">
+        <select (change)="selectItemPerPage($event)" class="form-select" aria-label="select example">
+          <option [selected]="number===itemPerPage"
+                  *ngFor="let number of tableConfig.pagination.itemPerPageOptions">{{number}}</option>
+          <option>All</option>
+        </select>
+      </li>
+    </ul>
+  </nav>
+
+
+</div>
+
+
+
+
+

@@ -1,0 +1,78 @@
+<br xmlns="http://www.w3.org/1999/html"><br>
+<div class="container">
+  <h2 *ngIf="prenotazioneIdFromRoute!=0">Modifica Prenotazione</h2>
+  <h2 *ngIf="prenotazioneIdFromRoute===0">Crea Prenotazione</h2>
+
+  <div class="form-inline">
+    <div>
+      <form #form="ngForm" (ngSubmit)="saveOrUpdatePrenotazione()">
+
+        <input type="hidden" id="utente" class="form-control" name="utente" [(ngModel)]="prenotazione.utente"
+               ngModel required>
+
+        <div class="input-group form-group">
+          <label for="dataInizio">Data di Inizio Prenotazione:</label>
+          <input type="date" id="dataInizio" class="form-control" name="dataInizio"
+                 [(ngModel)]="prenotazione.dataInizio" #dataInizio="ngModel" required [min]="prenotazione.dataFine">
+        </div>
+
+        <div class="input-group form-group">
+          <label for="dataFine">Data di Fine Prenotazione:</label>
+          <input type="date" id="dataFine" class="form-control" name="dataFine" [(ngModel)]="prenotazione.dataFine"
+                 ngModel required [min]="prenotazione.dataInizio">
+        </div>
+
+        <div *ngIf="prenotazione.dataInizio >= prenotazione.dataFine"
+             class="alert">
+          <div>
+            La data di inizio non può essere antecedente a quella di fine Prenotazione!
+          </div>
+
+        </div>
+
+        <div class="input-group form-group">
+          <label for="veicolo">Veicolo</label>
+          <select class="form-control" name="veicolo" id="veicolo"
+                  ngModel required
+                  [(ngModel)]="prenotazione.veicolo" name="veicolo">
+            <option type="number" *ngFor="let tipo of veicoli" [ngValue]="tipo"
+                    [label]="tipo.casaCostruttrice + tipo.modello">{{tipo.id}}</option>
+          </select>
+        </div>
+
+        <div class="input-group form-group" *ngIf="prenotazioneIdFromRoute!=0 && ruolo=='admin'">
+          <label for="approva">Approvazione</label>
+          <select class="form-control" name="approvazione" id="approva" [disabled]="prenotazione.approvazione==true"
+                  ngModel required
+                  [(ngModel)]="prenotazione.approvazione" name="approvazione">
+            <option [value]="true">Approvata</option>
+            <option [value]="false">Non approvata</option>
+          </select>
+        </div>
+
+        <div class="input-group form-group">
+          <div *ngIf="prenotazioneIdFromRoute!=0">
+            <button type="submit" class="btn btn-primary" [disabled]="!form.valid && !dataInizio.errors">Modifica</button>
+          </div>
+          <div *ngIf="prenotazioneIdFromRoute===0">
+            <button type="submit" class="btn btn-primary" [disabled]="!form.valid">Crea</button>
+          </div>
+
+          <div *ngIf="ruolo=='admin'">
+            <button type="button" class="btn btn-secondary" [routerLink]="['/prenotazioni']" value="Indietro">Indietro</button>
+          </div>
+
+          <div *ngIf="ruolo=='customer'">
+            <button type="button" class="btn btn-secondary" [routerLink]="['/prenotazioni/prenotazioniCustomer',idUtente]" value="Indietro">Indietro</button>
+          </div>
+
+
+        </div>
+      </form>
+
+    </div>
+
+  </div>
+</div>
+
+

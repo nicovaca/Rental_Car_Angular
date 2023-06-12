@@ -1,0 +1,11 @@
+<router-outlet></router-outlet>
+
+<br><br>
+<app-my-table
+  [tableConfig]="headersTable"
+  [data]="prenotazioni"
+
+  (emitter)="getAction($event.action, $event.object)"
+>
+
+</app-my-table>

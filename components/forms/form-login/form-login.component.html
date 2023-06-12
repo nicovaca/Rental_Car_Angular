@@ -1,0 +1,21 @@
+<div class="container my-5 mx-auto">
+  <h2 style="margin-bottom: 2%">Effettua il Login</h2>
+
+    <form #loginForm="ngForm" (ngSubmit)="onLogin()">
+      <div class="input-group mb-3">
+        <span class="input-group-text">Username</span>
+        <input type="text" class="form-control" name="username" [(ngModel)]="username" placeholder="Username" ngModel>
+      </div>
+      <div class="input-group mb-3">
+        <span class="input-group-text">Password</span>
+        <input type="password" class="form-control" name="password" [(ngModel)]="password" placeholder="Password" ngModel>
+      </div>
+      <div class="input-group mb-3">
+        <div class="col-auto">
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+      </div>
+
+    </form>
+
+</div>

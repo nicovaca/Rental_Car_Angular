@@ -1,0 +1,49 @@
+<br xmlns="http://www.w3.org/1999/html"><br>
+<div class="container">
+  <h2>Compila i seguenti campi per registrarti:</h2>
+
+  <div class="form-inline">
+    <div>
+      <form #form="ngForm" (ngSubmit)="saveUtente()">
+
+        <div class="input-group form-group">
+          <label for="nome">Nome:</label>
+          <input type="text" id="nome" name="nome"  class="form-control" [(ngModel)]="utente.nome" ngModel required>
+        </div>
+
+        <div class="input-group form-group">
+          <label for="cognome">Cognome:</label>
+          <input type="text" id="cognome" class="form-control" name="cognome" [(ngModel)]="utente.cognome" ngModel required>
+        </div>
+
+
+        <div class="input-group form-group">
+          <label for="dataNacita">Data di Nascita:</label>
+          <input type="date" id="dataNacita" class="form-control" name="dataNascita" [(ngModel)]="utente.dataNascita" ngModel required>
+        </div>
+
+        <div class="input-group form-group">
+          <label for="username">Username:</label>
+          <input type="text" id="username" class="form-control" name="username" [(ngModel)]="utente.username" ngModel required>
+        </div>
+
+        <div class="input-group form-group">
+          <label for="password">Password:</label>
+          <input type="password" id="password" class="form-control" name="password" [(ngModel)]="utente.password" ngModel required>
+        </div>
+
+        <div class="input-group form-group">
+
+            <button type="submit" class="btn btn-primary" [disabled]="!form.valid">Registrati</button>
+
+
+          <button type="button" class="btn btn-secondary" [routerLink]="['/']" value="Indietro">Indietro</button>
+
+        </div>
+      </form>
+
+    </div>
+
+  </div>
+</div>
+

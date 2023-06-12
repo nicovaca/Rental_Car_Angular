@@ -1,0 +1,64 @@
+<br xmlns="http://www.w3.org/1999/html"><br>
+<div class="container align-content-lg-center">
+  <h2 *ngIf="veicoloIdFromRoute!=0">Modifica Veicolo</h2>
+  <h2 *ngIf="veicoloIdFromRoute===0">Crea Veicolo</h2>
+
+  <div class="form-inline">
+    <div>
+
+      <form #form="ngForm" (ngSubmit)="saveOrUpdateVeicolo()">
+        <div class="input-group form-group">
+          <label for="casaCostruttrice">Casa Costruttrice:</label>
+          <input type="text" id="casaCostruttrice" name="casaCostruttrice" class="form-control"
+                 [(ngModel)]="veicolo.casaCostruttrice" ngModel required>
+        </div>
+
+        <div class="input-group form-group">
+          <label for="modello">Modello:</label>
+          <input type="text" id="modello" name="modello" class="form-control" [(ngModel)]="veicolo.modello" ngModel
+                 required>
+        </div>
+
+        <div class="input-group form-group">
+          <label for="targa">Targa:</label>
+          <input type="text" id="targa" name="targa" class="form-control" [(ngModel)]="veicolo.targa" ngModel required>
+        </div>
+
+        <div class="input-group form-group">
+          <label for="annoImmatricolazione">Anno di Immatricolazione:</label>
+          <input type="number" id="annoImmatricolazione" name="annoImmatricolazione" class="form-control"
+                 [(ngModel)]="veicolo.annoImmatricolazione"
+                 ngModel required>
+        </div>
+
+
+        <div class="input-group form-group">
+          <label for="tipoVeicolo">Tipo di Veicolo</label>
+          <select class="form-control" name="tipoVeicolo" id="tipoVeicolo"
+                  ngModel required
+                  [(ngModel)]="veicolo.tipoVeicolo" name="tipoVeicolo">
+                    <option *ngFor="let tipo of veicoloTypes" [value]="tipo" [label]="tipo"></option>
+
+
+          </select>
+        </div>
+
+
+        <br>
+        <div class="input-group form-group align-bottom">
+
+          <div *ngIf="veicoloIdFromRoute!=0">
+            <button type="submit" class="btn btn-primary" [disabled]="!form.valid">Modifica</button>
+          </div>
+          <div *ngIf="veicoloIdFromRoute===0">
+            <button type="submit" class="btn btn-primary" [disabled]="!form.valid">Crea</button>
+          </div>
+          &nbsp;
+          <button type="button" class="btn btn-secondary" [routerLink]="['/veicoli']" value="Indietro">Indietro</button>
+
+        </div>
+      </form>
+    </div>
+
+  </div>
+</div>

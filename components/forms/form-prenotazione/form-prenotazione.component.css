@@ -1,0 +1,97 @@
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+#form {
+  background:#ccc;
+  width:500px;
+  margin:20px auto;
+}
+label{
+  width: 150px;
+  margin-left:20px;
+  clear:left;
+  display:block;
+  float:left;
+}
+input, textarea{
+  width: 300px;
+  float:left;
+  margin-bottom:10px;
+}
+
+/*a*/
+.btn.focus,
+.btn:focus,
+.form-control:focus,
+.custom-select:focus,
+.custom-select:focus {
+  box-shadow: none;
+}
+.form-control:focus,
+.custom-select:focus {
+  border: 1px solid #f63240;
+}
+
+.btn-group-lg > .btn,
+.btn-lg {
+  padding: 13px 15px 15px;
+  font-size: 16px;
+  border-radius: 0;
+}
+
+
+.custom-control-input:checked ~ .custom-control-label::before {
+  border-color: #e91e63;
+  background-color: #e91e63;
+}
+.custom-control-input:focus ~ .custom-control-label::before {
+  box-shadow: none;
+}
+.custom-control-label {
+  cursor: pointer;
+}
+.error:focus,
+.error {
+  border-color: #e91e63;
+  color: #e91e63;
+}
+.invalid-feedback {
+  color: #e91e63;
+}
+.btn-danger,
+body .btn-danger:hover {
+  background: #f63240;
+  border-color: #f63240;
+  color: #fff;
+}
+
+.ng-valid[required], .ng-valid.required  {
+  border-left: 5px solid #42A948; /* green */
+}
+
+.ng-invalid:not(form)  {
+  border-left: 5px solid #a94442; /* red */
+}
+
+.alert div {
+  background-color: #fed3d3;
+  color: #820000;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+label {
+  display: block;
+  margin-bottom: .5rem;
+}
+
+select {
+  width: 100%;
+  padding: .5rem;
+}
